@@ -6,18 +6,21 @@ const bcrypt = require("bcrypt");
 
 // Para validar los datos del inicio de sesion
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { usuario, password } = req.body;
 
     // Buscar al usuario en la base de datos
-    const usuarios = await usuariosModelo.findOne({ email });
+    const usuarios = await usuariosModelo.findOne({ usuario });
+
+    console.log(usuarios)
 
     // Verificar si el usuario no existe
     if (!usuarios) return res.status(401).json({ mensaje: "Usuario no registrado" });
 
     // Verificar si el usuario está activo
-    if (usuarios.estado === "true") {
+    if (usuarios.estadoUsuario == "true") {
         // Compara la contraseña proporcionada con la hasheada en la base de datos
         const passwordMatch = await bcrypt.compare(password, usuarios.password);
+        console.log(passwordMatch);
 
         if (!passwordMatch) {
             return res.status(401).json({ mensaje: "Contraseña Incorrecta" });
