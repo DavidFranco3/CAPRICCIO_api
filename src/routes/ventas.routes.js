@@ -262,7 +262,7 @@ router.get("/listarVentasRangoFechas", async (req, res) => {
       estado: "COBR",
       createdAt: {
         $gte: new Date(fechaInicial + "T00:00:00.000Z"),
-        $lte: new Date(fechaFinal + "T22:09:59.999Z"),
+        $lte: new Date(fechaFinal + "T22:11:59.999Z"),
       },
     })
     .sort({ fecha: -1 })
