@@ -226,7 +226,7 @@ router.get("/listarPaginandoDia", async (req, res) => {
       estado: "COBR",
       createdAt: {
         $gte: new Date(dia + "T00:00:00.000Z"),
-        $lte: new Date(dia + "T22:09:59.999Z"),
+        $lte: new Date(dia + "T23:59:59.999Z"),
       },
     })
     .sort({ _id: -1 })
@@ -245,7 +245,7 @@ router.get("/listarVentasDia", async (req, res) => {
       estado: "COBR",
       createdAt: {
         $gte: new Date(dia + "T00:00:00.000Z"),
-        $lte: new Date(dia + "T22:09:59.999Z"),
+        $lte: new Date(dia + "T23:59:59.999Z"),
       },
     })
     .sort({ _id: -1 })
@@ -262,7 +262,7 @@ router.get("/listarVentasRangoFechas", async (req, res) => {
       estado: "COBR",
       createdAt: {
         $gte: new Date(fechaInicial + "T00:00:00.000Z"),
-        $lte: new Date(fechaFinal + "T22:11:59.999Z"),
+        $lte: new Date(fechaFinal + "T23:59:59.999Z"),
       },
     })
     .sort({ fecha: -1 })
@@ -302,7 +302,7 @@ router.get("/listarTotalVentasDia", async (req, res) => {
       estado: "COBR",
       createdAt: {
         $gte: new Date(dia + "T00:00:00.000Z"),
-        $lte: new Date(dia + "T22:09:59.999Z"),
+        $lte: new Date(dia + "T23:59:59.999Z"),
       },
     })
     .sort({ _id: -1 })
@@ -705,7 +705,7 @@ router.get("/listarDetallesVentasDia", async (req, res) => {
       estado: "true",
       createdAt: {
         $gte: new Date(dia + "T00:00:00.000Z"),
-        $lte: new Date(dia + "T22:09:59.999Z"),
+        $lte: new Date(dia + "T23:59:59.999Z"),
       },
     })
     .count()
@@ -725,7 +725,7 @@ router.get("/listarDetallesProductosVendidosDia", async (req, res) => {
       estado: "true",
       createdAt: {
         $gte: new Date(dia + "T00:00:00.000Z"),
-        $lte: new Date(dia + "T22:09:59.999Z"),
+        $lte: new Date(dia + "T23:59:59.999Z"),
       },
     })
     .sort({ _id: -1 })
@@ -771,7 +771,7 @@ router.get("/listarConsumoIngredientes", async (req, res) => {
       estado: "true",
       createdAt: {
         $gte: new Date(dia + "T00:00:00.000Z"),
-        $lte: new Date(dia + "T22:09:59.999Z"),
+        $lte: new Date(dia + "T23:59:59.999Z"),
       },
     })
     .sort({ _id: -1 })
