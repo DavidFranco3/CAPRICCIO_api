@@ -224,7 +224,7 @@ router.get("/listarPaginandoDia", async (req, res) => {
   await ventas
     .find({
       estado: "COBR",
-      createdAt: {
+      fecha: {
         $gte: new Date(dia + "T00:00:00.000Z"),
         $lte: new Date(dia + "T23:59:59.999Z"),
       },
@@ -243,7 +243,7 @@ router.get("/listarVentasDia", async (req, res) => {
   await ventas
     .find({
       estado: "COBR",
-      createdAt: {
+      fecha: {
         $gte: new Date(dia + "T00:00:00.000Z"),
         $lte: new Date(dia + "T23:59:59.999Z"),
       },
@@ -260,7 +260,7 @@ router.get("/listarVentasRangoFechas", async (req, res) => {
   await ventas
     .find({
       estado: "COBR",
-      createdAt: {
+      fecha: {
         $gte: new Date(fechaInicial + "T00:00:00.000Z"),
         $lte: new Date(fechaFinal + "T23:59:59.999Z"),
       },
@@ -300,7 +300,7 @@ router.get("/listarTotalVentasDia", async (req, res) => {
   await ventas
     .find({
       estado: "COBR",
-      createdAt: {
+      fecha: {
         $gte: new Date(dia + "T00:00:00.000Z"),
         $lte: new Date(dia + "T23:59:59.999Z"),
       },
@@ -703,7 +703,7 @@ router.get("/listarDetallesVentasDia", async (req, res) => {
   await ventas
     .find({
       estado: "true",
-      createdAt: {
+      fecha: {
         $gte: new Date(dia + "T00:00:00.000Z"),
         $lte: new Date(dia + "T23:59:59.999Z"),
       },
@@ -723,7 +723,7 @@ router.get("/listarDetallesProductosVendidosDia", async (req, res) => {
   await ventas
     .find({
       estado: "true",
-      createdAt: {
+      fecha: {
         $gte: new Date(dia + "T00:00:00.000Z"),
         $lte: new Date(dia + "T23:59:59.999Z"),
       },
@@ -753,7 +753,7 @@ router.get("/listarDetallesProductosVendidosDia", async (req, res) => {
             hacerPedido: data[indexPrincipal].hacerPedido,
             tipoPago: data[indexPrincipal].tipoPago,
             totalVenta: data[indexPrincipal].total,
-            fecha: data[indexPrincipal].createdAt,
+            fecha: data[indexPrincipal].fecha,
           });
         });
       });
@@ -769,7 +769,7 @@ router.get("/listarConsumoIngredientes", async (req, res) => {
   await ventas
     .find({
       estado: "true",
-      createdAt: {
+      fecha: {
         $gte: new Date(dia + "T00:00:00.000Z"),
         $lte: new Date(dia + "T23:59:59.999Z"),
       },
@@ -787,7 +787,7 @@ router.get("/listarConsumoIngredientes", async (req, res) => {
               nombre: nombre,
               cantidad: cantidad,
               um: um,
-              fecha: data[indexPrincipal].createdAt,
+              fecha: data[indexPrincipal].fecha,
             });
           });
         });
@@ -828,7 +828,7 @@ router.get("/listarDetallesProductosVendidosMes", async (req, res) => {
             hacerPedido: data[indexPrincipal].hacerPedido,
             tipoPago: data[indexPrincipal].tipoPago,
             totalVenta: data[indexPrincipal].total,
-            fecha: data[indexPrincipal].createdAt,
+            fecha: data[indexPrincipal].fecha,
           });
         });
       });
@@ -903,7 +903,7 @@ router.get("/listarProductosAdicionales", async (req, res) => {
             precio: precio,
             tipoPago: data[indexPrincipal].tipoPago,
             totalVenta: data[indexPrincipal].total,
-            fecha: data[indexPrincipal].createdAt,
+            fecha: data[indexPrincipal].fecha,
           });
         });
       });
@@ -1227,7 +1227,7 @@ router.get("/ventasTotalesDelDia", async (req, res) => {
 
     const ventasDelDia = await ventas.find({
       estado: "COBR",
-      createdAt: {
+      fecha: {
         $gte: new Date(diaActual + "T00:00:00.000Z"), // Mayor o igual que el inicio del día
         $lte: new Date(diaActual + "T23:59:59.999Z"), // Menor o igual que el final del día
       },
