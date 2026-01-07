@@ -85,16 +85,11 @@ router.get("/listarClientes", async (req, res) => {
 
 // Obtener las ventas activas con paginacion
 router.get("/listarPaginandoActivos", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await usuarios
         .find({ tipo: "interno", estadoUsuario: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -111,16 +106,11 @@ router.get("/totalUsuariosActivos", async (_req, res) => {
 
 // Obtener las ventas activas con paginacion
 router.get("/listarPaginandoClientes", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await usuarios
         .find({ tipo: "externo" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -137,16 +127,11 @@ router.get("/totalClientes", async (_req, res) => {
 
 // Obtener las ventas canceladas con paginacion
 router.get("/listarPaginandoCancelados", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await usuarios
         .find({ tipo: "interno", estadoUsuario: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -163,16 +148,11 @@ router.get("/totalUsuariosCancelados", async (_req, res) => {
 
 // Listar paginando los usuarios
 router.get("/listarPaginando", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await usuarios
         .find()
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

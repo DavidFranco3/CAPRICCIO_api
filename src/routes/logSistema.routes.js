@@ -50,16 +50,11 @@ router.get("/obtenerNoLog", async (req, res) => {
 
 // Listar los logs paginando
 router.get("/listarPaginando", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await logs
         .find()
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

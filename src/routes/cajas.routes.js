@@ -27,15 +27,9 @@ router.get("/listar", async (req, res) => {
 
 // Obtener las cajas activas con paginacion
 router.get("/listarPaginando", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await cajas
         .find()
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -52,15 +46,9 @@ router.get("/totalCajas", async (_req, res) => {
 
 // Obtener las cajas activas con paginacion
 router.get("/listarPaginandoActivas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await cajas
         .find({ estado: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -77,15 +65,9 @@ router.get("/totalCajasActivas", async (_req, res) => {
 
 // Obtener las cajas canceladas con paginacion
 router.get("/listarPaginandoCanceladas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await cajas
         .find({ estado: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

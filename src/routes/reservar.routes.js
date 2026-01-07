@@ -27,15 +27,9 @@ router.get("/listar", async (req, res) => {
 
 // Obtener las rservar activas con paginacion
 router.get("/listarPaginando", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await reservar
         .find()
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -52,15 +46,9 @@ router.get("/totalReservar", async (_req, res) => {
 
 // Obtener las reeservar  activas con paginacion
 router.get("/listarPaginandoActivas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await reservar
         .find({ estado: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -77,15 +65,9 @@ router.get("/totalReservarActivas", async (_req, res) => {
 
 // Obtener las reservar canceladas con paginacion
 router.get("/listarPaginandoCanceladas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await reservar
         .find({ estado: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

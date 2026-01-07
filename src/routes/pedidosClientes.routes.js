@@ -28,16 +28,11 @@ router.get("/listar", async (req, res) => {
 
 // Obtener los pedidos activas con paginacion
 router.get("/listarPaginandoActivas", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await pedidosClientes
         .find({ estado: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -54,16 +49,12 @@ router.get("/totalPedidosActivas", async (_req, res) => {
 
 // Obtener los pedidos activas con paginacion
 router.get("/listarPaginandoClientes", async (req, res) => {
-    const { usuario, pagina, limite } = req.query;
+    const { usuario } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await pedidosClientes
         .find({ usuario })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -81,16 +72,11 @@ router.get("/totalPedidosClientes", async (req, res) => {
 
 // Obtener los pedidos canceladas
 router.get("/listarPaginando", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await pedidosClientes
         .find()
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -107,16 +93,11 @@ router.get("/totalPedidos", async (_req, res) => {
 
 // Obtener los pedidos canceladas con paginacion
 router.get("/listarPaginandoCanceladas", async (req, res) => {
-    const { pagina, limite } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await pedidosClientes
         .find({ estado: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -133,16 +114,12 @@ router.get("/totalPedidosCanceladas", async (_req, res) => {
 
 // Obtener los pedidos con paginacion segun el dia
 router.get("/listarPaginandoDia", async (req, res) => {
-    const { pagina, limite, dia } = req.query;
+    const { dia } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await pedidosClientes
         .find({ estado: "true", createdAt: { $gte: new Date(dia + 'T00:00:00.000Z'), $lte: new Date(dia + 'T23:59:59.999Z') } })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -315,16 +292,12 @@ router.get("/listarDetallesPedidosMes", async (req, res) => {
 
 // Obtener los pedidos con paginacion segun el mes
 router.get("/listarPaginandoMes", async (req, res) => {
-    const { pagina, limite, mes } = req.query;
+    const { mes } = req.query;
     //console.log("Pagina ", pagina , " Limite ", limite)
-
-    const skip = (pagina - 1) * limite;
 
     await pedidosClientes
         .find({ estado: "true", agrupar: mes })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

@@ -27,15 +27,9 @@ router.get("/listar", async (req, res) => {
 
 // Obtener las categorias activas con paginacion
 router.get("/listarPaginandoActivas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await categorias
         .find({ estado: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -52,15 +46,9 @@ router.get("/totalCategoriasActivas", async (_req, res) => {
 
 // Obtener las categorias canceladas con paginacion
 router.get("/listarPaginandoCanceladas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await categorias
         .find({ estado: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

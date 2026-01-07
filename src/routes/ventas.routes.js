@@ -30,16 +30,12 @@ router.get("/listar", async (req, res) => {
 
 // Obtener las ventas activas con paginacion
 router.get("/listarPaginandoCajerosActivas", async (req, res) => {
-  const { pagina, limite, usuario } = req.query;
+  const { usuario } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({ usuario, estado: "true" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -57,16 +53,12 @@ router.get("/totalVentasCajerosActivas", async (req, res) => {
 
 // Obtener las ventas canceladas con paginacion
 router.get("/listarPaginandoCajerosCanceladas", async (req, res) => {
-  const { pagina, limite, usuario } = req.query;
+  const { usuario } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({ usuario, estado: "false" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -84,16 +76,11 @@ router.get("/totalVentasCajerosCanceladas", async (req, res) => {
 
 // Obtener las ventas activas con paginacion
 router.get("/listarPaginandoActivas", async (req, res) => {
-  const { pagina, limite } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({ estado: "true" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -110,16 +97,12 @@ router.get("/totalVentasActivas", async (_req, res) => {
 
 // Obtener las ventas activas con paginacion
 router.get("/listarPaginandoActivasTicket", async (req, res) => {
-  const { pagina, limite, numeroTiquet } = req.query;
+  const { numeroTiquet } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({ numeroTiquet, estado: "true" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -137,16 +120,11 @@ router.get("/totalVentasActivasTicket", async (req, res) => {
 
 // Obtener las ventas canceladas con paginacion
 router.get("/listarPaginandoCanceladas", async (req, res) => {
-  const { pagina, limite } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({ estado: "false" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -163,16 +141,12 @@ router.get("/totalVentasCanceladas", async (_req, res) => {
 
 // Obtener las ventas canceladas con paginacion
 router.get("/listarPaginandoCanceladasTicket", async (req, res) => {
-  const { pagina, limite, numeroTiquet } = req.query;
+  const { numeroTiquet } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({ numeroTiquet, estado: "false" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -190,16 +164,11 @@ router.get("/totalVentasCanceladasTicket", async (req, res) => {
 
 // Obtener las ventas canceladas
 router.get("/listarPaginando", async (req, res) => {
-  const { pagina, limite } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find()
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -216,10 +185,8 @@ router.get("/totalVentas", async (_req, res) => {
 
 // Obtener las ventas con paginacion segun el dia
 router.get("/listarPaginandoDia", async (req, res) => {
-  const { pagina, limite, dia } = req.query;
+  const { dia } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
-
-  const skip = (pagina - 1) * limite;
 
   await ventas
     .find({
@@ -230,8 +197,6 @@ router.get("/listarPaginandoDia", async (req, res) => {
       },
     })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -680,18 +645,14 @@ router.get("/listarDetallesVentasSemana", async (req, res) => {
 
 // Obtener las ventas con paginacion segun el semana
 router.get("/listarPaginandoSemana", async (req, res) => {
-  const { pagina, limite, semana, año } = req.query;
+  const { semana, año } = req.query;
   //console.log("Pagina ", pagina , " Limite ", limite)
 
   console.log(año);
 
-  const skip = (pagina - 1) * limite;
-
   await ventas
     .find({ estado: "true", semana: semana, año: año })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });

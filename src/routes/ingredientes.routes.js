@@ -27,15 +27,9 @@ router.get("/listar", async (req, res) => {
 
 // Obtener los ingredientes activos con paginacion
 router.get("/listarPaginandoActivos", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await ingredientes
         .find({ estado: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -55,15 +49,11 @@ router.get("/listarMovimientosIngredientes/:id", async (req, res) => {
 
 // Para obtener el listado de movimientos de una materia prima
 router.get("/listarMovimientosIngredientesPaginacion", async (req, res) => {
-    const { id, pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
+    const { id } = req.query;
 
     await ingredientes
         .findOne({ _id: id })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => {
             res.status(200).json(data.movimientos.reverse())
         })
@@ -93,15 +83,9 @@ router.get("/totalIngredientesActivos", async (_req, res) => {
 
 // Obtener los ingredientes canceladas con paginacion
 router.get("/listarPaginandoCancelados", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await ingredientes
         .find({ estado: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -150,7 +134,7 @@ router.put("/registraMovimientos/:id", async (req, res) => {
     const { movimientos, cantidad } = req.body;
     await ingredientes
         .updateOne({ _id: id }, { $set: { movimientos, cantidad } })
-        .then((data) => res.status(200).json({ mensaje: "Se ha registrado un movimiento de ingrediente", datos: data}))
+        .then((data) => res.status(200).json({ mensaje: "Se ha registrado un movimiento de ingrediente", datos: data }))
         .catch((error) => res.json({ message: error }));
 });
 

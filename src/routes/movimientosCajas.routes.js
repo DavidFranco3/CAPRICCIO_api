@@ -38,15 +38,11 @@ router.get("/ObtenerUltimo", async (req, res) => {
 
 // Obtener las cajas activas con paginacion
 router.get("/listarPaginando", async (req, res) => {
-    const { pagina, limite, idCaja } = req.query;
-
-    const skip = (pagina - 1) * limite;
+    const { idCaja } = req.query;
 
     await movimientosCajas
         .find({ idCaja })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -65,15 +61,9 @@ router.get("/totalMovimientos", async (req, res) => {
 
 // Obtener las cajas activas con paginacion
 router.get("/listarPaginandoActivas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await movimientosCajas
         .find({ estado: "true" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -90,15 +80,9 @@ router.get("/totalMovimientosActivas", async (_req, res) => {
 
 // Obtener las cajas canceladas con paginacion
 router.get("/listarPaginandoCanceladas", async (req, res) => {
-    const { pagina, limite } = req.query;
-
-    const skip = (pagina - 1) * limite;
-
     await movimientosCajas
         .find({ estado: "false" })
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(limite)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

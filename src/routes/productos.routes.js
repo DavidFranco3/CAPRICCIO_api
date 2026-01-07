@@ -27,15 +27,9 @@ router.get("/listar", async (req, res) => {
 
 // Obtener los productos activos con paginacion
 router.get("/listarPaginandoActivos", async (req, res) => {
-  const { pagina, limite } = req.query;
-
-  const skip = (pagina - 1) * limite;
-
   await productos
     .find({ estado: "true" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -52,15 +46,9 @@ router.get("/totalProductosActivos", async (_req, res) => {
 
 // Obtener los productos cancelados con paginación
 router.get("/listarPaginandoCancelados", async (req, res) => {
-  const { pagina, limite } = req.query;
-
-  const skip = (pagina - 1) * limite;
-
   await productos
     .find({ estado: "false" })
     .sort({ _id: -1 })
-    .skip(skip)
-    .limit(limite)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
